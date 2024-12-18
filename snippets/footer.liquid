@@ -1,0 +1,74 @@
+<div class="footer-content" style="font-family: 'Architects Daughter', cursive; color: #555;">
+  <div class="footer-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; padding: 20px;">
+    
+    <!-- Newsletter Section -->
+    <div class="footer-section" style="transform: rotate(-1deg);">
+      <h3 style="font-family: 'Permanent Marker', cursive; margin-bottom: 15px;">Stay in the Loop!</h3>
+      <form class="newsletter-form" style="border: 2px dashed #666; padding: 15px; background: rgba(255,255,255,0.5);">
+        <input type="email" 
+               placeholder="Your email here..." 
+               style="width: 100%; padding: 8px; border: 1px dashed #666; background: transparent; font-family: 'Architects Daughter', cursive; margin-bottom: 10px;">
+        <button type="submit" 
+                style="border: 2px dashed #555; padding: 8px 15px; background: transparent; font-family: 'Architects Daughter', cursive; cursor: pointer; transform: rotate(1deg);">
+          Subscribe →
+        </button>
+      </form>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-section" style="transform: rotate(1deg);">
+      <h3 style="font-family: 'Permanent Marker', cursive; margin-bottom: 15px;">Quick Links</h3>
+      <ul style="list-style: none; padding: 0; margin: 0;">
+        {% for link in linklists.footer.links %}
+          <li style="margin-bottom: 10px;">
+            <a href="{{ link.url }}" style="color: #666; text-decoration: none; border-bottom: 1px dashed #666;">
+              ✎ {{ link.title }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="footer-section" style="transform: rotate(-0.5deg);">
+      <h3 style="font-family: 'Permanent Marker', cursive; margin-bottom: 15px;">Get in Touch</h3>
+      <div style="border: 2px dashed #666; padding: 15px; background: rgba(255,255,255,0.5);">
+        {% if settings.contact_address %}
+          <p style="margin-bottom: 10px;">📍 {{ settings.contact_address }}</p>
+        {% endif %}
+        {% if settings.contact_email %}
+          <p style="margin-bottom: 10px;">✉️ {{ settings.contact_email }}</p>
+        {% endif %}
+        {% if settings.contact_phone %}
+          <p style="margin-bottom: 10px;">📞 {{ settings.contact_phone }}</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Social Media -->
+    <div class="footer-section" style="transform: rotate(0.5deg);">
+      <h3 style="font-family: 'Permanent Marker', cursive; margin-bottom: 15px;">Follow Us</h3>
+      <div class="social-icons" style="display: flex; gap: 15px; filter: grayscale(100%);">
+        {% if settings.social_facebook_link %}
+          <a href="{{ settings.social_facebook_link }}" style="color: #555;">📘</a>
+        {% endif %}
+        {% if settings.social_instagram_link %}
+          <a href="{{ settings.social_instagram_link }}" style="color: #555;">📷</a>
+        {% endif %}
+        {% if settings.social_twitter_link %}
+          <a href="{{ settings.social_twitter_link }}" style="color: #555;">🐦</a>
+        {% endif %}
+        {% if settings.social_pinterest_link %}
+          <a href="{{ settings.social_pinterest_link }}" style="color: #555;">📌</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="footer-bottom" style="text-align: center; padding: 20px 0; border-top: 1px dashed #666; margin-top: 20px;">
+    <p style="margin: 0; transform: rotate(-0.5deg);">
+      © {{ 'now' | date: "%Y" }} {{ shop.name }}. Doodled with ❤️
+    </p>
+  </div>
+</div> 

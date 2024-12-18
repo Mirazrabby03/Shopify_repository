@@ -1,0 +1,109 @@
+<div class="homepage" style="font-family: 'Architects Daughter', cursive; background: url('pencil-paper-texture.jpg');">
+  <!-- Navigation Bar -->
+  <nav class="navigation" style="border: 2px solid #666; border-style: dashed; box-shadow: 2px 2px 4px rgba(0,0,0,0.2);">
+    <div class="nav-container" style="display: flex; align-items: center; justify-content: space-between; padding: 0 20px;">
+      <div style="display: flex; align-items: center; gap: 30px;">
+        <div class="logo">
+          {% if section.settings.logo %}
+            <img src="{{ section.settings.logo | img_url: 'master' }}" alt="{{ shop.name }}" style="filter: grayscale(100%) contrast(120%) brightness(90%);">
+          {% else %}
+            <span class="shop-name" style="font-size: 24px; color: #444; text-shadow: 1px 1px 1px #999;">{{ shop.name }}</span>
+          {% endif %}
+        </div>
+        
+        <ul class="nav-links" style="list-style: none; margin: 0; padding: 0; display: flex; gap: 20px;">
+          {% for link in linklists.main-menu.links %}
+            <li>
+              <a href="{{ link.url }}" {% if link.active %}style="color: #444; text-decoration: underline wavy;"{% else %}style="color: #666; text-decoration: none;"{% endif %}>
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="search-bar" style="flex: 0 1 300px;">
+        <input type="text" placeholder="Search..." style="width: 100%; padding: 8px; border: 1px dashed #666; background: transparent; font-family: 'Architects Daughter', cursive;">
+      </div>
+
+      <div class="nav-icons" style="filter: grayscale(100%);">
+        <a href="/cart" class="cart-icon" style="color: #555;">
+          {% comment %} {% render 'icon-cart' %} {% endcomment %}
+          <span class="cart-count" style="border: 1px dashed #666; padding: 2px 6px; border-radius: 50%;">{{ cart.item_count }}</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner" style="border: 3px solid #777; border-style: sketchy; margin: 20px; padding: 20px;">
+    <div class="hero-content">
+      <h1 style="font-family: 'Permanent Marker', cursive; color: #444; text-shadow: 1px 1px 2px #999;">{{ section.settings.hero_heading }}</h1>
+      <p style="font-family: 'Architects Daughter', cursive; color: #666;">{{ section.settings.hero_text }}</p>
+      {% if section.settings.hero_button_text != blank %}
+        <a href="{{ section.settings.hero_button_link }}" style="border: 2px dashed #555; padding: 10px 20px; color: #444; text-decoration: none; display: inline-block; transform: rotate(-1deg);">
+          {{ section.settings.hero_button_text }}
+        </a>
+      {% endif %}
+    </div>
+    {% if section.settings.hero_image %}
+      <img src="{{ section.settings.hero_image | img_url: 'master' }}" alt="{{ section.settings.hero_heading }}" style="filter: grayscale(100%) contrast(120%) brightness(90%); border: 2px solid #666; transform: rotate(1deg);">
+    {% endif %}
+  </div>
+
+  <!-- Featured Products -->
+  <div class="featured-products" style="margin: 30px; padding: 20px; border: 2px dashed #777;">
+    <h2 style="font-family: 'Permanent Marker', cursive; color: #444; text-align: center;">{{ section.settings.products_heading }}</h2>
+    <div class="products-grid" style="display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+      {% for product in collections.featured.products limit: 4 %}
+        {% render 'product-card', product: product %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" style="border-top: 2px dashed #666; margin-top: 30px; padding-top: 20px;">
+    {% render 'footer' %}
+  </footer>
+</div>
+
+{% schema %}
+{
+  "name": "Homepage",
+  "settings": [
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Hero Heading",
+      "default": "Welcome to our store"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_text",
+      "label": "Hero Text",
+      "default": "Find amazing products at great prices"
+    },
+    {
+      "type": "text",
+      "id": "hero_button_text",
+      "label": "Hero Button Text"
+    },
+    {
+      "type": "url",
+      "id": "hero_button_link",
+      "label": "Hero Button Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image"
+    },
+    {
+      "type": "text",
+      "id": "products_heading",
+      "label": "Products Section Heading",
+      "default": "Featured Products"
+    }
+  ]
+}
+{% endschema %}
